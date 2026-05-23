@@ -1,60 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Me Everyday 💌</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      font-family:Arial, sans-serif;
+      background:linear-gradient(to bottom,#0f172a,#020617);
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+
+    .stars{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      top:0;
+      left:0;
+    }
+
+    .star{
+      position:absolute;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      animation:twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle{
+      from{
+        opacity:0.2;
+      }
+      to{
+        opacity:1;
+      }
+    }
+
+    .container{
+      position:relative;
+      z-index:2;
+      max-width:500px;
+      animation:fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    h1{
+      font-size:42px;
+      margin-bottom:15px;
+    }
+
+    p{
+      line-height:1.8;
+      opacity:0.85;
+      font-size:18px;
+    }
+
+    button{
+      margin-top:30px;
+      padding:15px 28px;
+      border:none;
+      border-radius:16px;
+      background:#ff4d8d;
+      color:white;
+      font-size:17px;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 20px rgba(255,77,141,0.4);
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .message-box{
+      margin-top:30px;
+      padding:25px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      display:none;
+      font-size:20px;
+      line-height:1.8;
+      animation:fadeIn 1s ease;
+    }
+
+    .day{
+      margin-top:15px;
+      opacity:0.6;
+      font-size:14px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <h1>Open Me Everyday 💌</h1>
+
+  <p>
+    One message. <br>
+    Every day. <br>
+    Until Day 2192 ✨
+  </p>
+
+  <button onclick="showMessage()">
+    Open Today’s Message
+  </button>
+
+  <div class="message-box" id="messageBox">
+    <div id="message"></div>
+    <div class="day" id="dayText"></div>
+  </div>
+
+</div>
+
 <script>
 
-async function loadMessages(){
+const messages = [
 
-const response = await fetch('messages.txt');
+"You are loved more than you know 💖",
 
-const text = await response.text();
+"No matter what happens today... I'm always with you 🫂",
 
-const messages = text
-  .split('
-')
-  .filter(msg => msg.trim() !== '');
+"Please smile a little today for me 😭✨",
 
-const startDate = new Date('2025-01-01');
+"You make my world softer and safer 🌙",
 
-const today = new Date();
+"Drink water. Rest properly. I love you 💌"
 
-const diffTime = today - startDate;
-
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-const index = diffDays % messages.length;
-
-window.dailyMessage = messages[index];
-
-window.dayNumber = diffDays + 1;
-}
+];
 
 function showMessage(){
 
-  document.getElementById('message').innerText =
-    window.dailyMessage;
+  const startDate = new Date("2025-01-01");
 
-  document.getElementById('dayText').innerText =
-    'Day ' + window.dayNumber + ' 💖';
+  const today = new Date();
 
-  document.getElementById('messageBox').style.display = 'block';
+  const diffTime = today - startDate;
+
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  const index = diffDays % messages.length;
+
+  document.getElementById("message").innerText = messages[index];
+
+  document.getElementById("dayText").innerText =
+    "Day " + (diffDays + 1) + " 💖";
+
+  document.getElementById("messageBox").style.display = "block";
 }
 
-loadMessages();
-
-const starsContainer = document.getElementById('stars');
+const starsContainer = document.getElementById("stars");
 
 for(let i=0;i<120;i++){
 
-  let star = document.createElement('div');
+  let star = document.createElement("div");
 
-  star.classList.add('star');
+  star.classList.add("star");
 
-  star.style.top = Math.random()*100 + '%';
+  star.style.top = Math.random()*100 + "%";
 
-  star.style.left = Math.random()*100 + '%';
+  star.style.left = Math.random()*100 + "%";
 
   star.style.animationDuration =
-    (Math.random()*3 + 2) + 's';
+    (Math.random()*3 + 2) + "s";
 
   starsContainer.appendChild(star);
 }
 
 </script>
+
+</body>
+</html>
