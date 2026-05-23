@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open Me Everyday 💌</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4d8d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .message-box {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      display: none;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/9QZ7K6v.png');
+      opacity: 0.2;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stars"></div>
+
+  <div class="container">
+    <h1>Open Me Everyday 💌</h1>
+
+    <p>
+      One message. <br>
+      Every day. <br>
+      Until Day 2192 ✨
+    </p>
+
+    <button onclick="showMessage()">
+      Open Today’s Message
+    </button>
+
+    <div class="message-box" id="messageBox">
+      You are loved more than you know 💖
+    </div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById("messageBox").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
