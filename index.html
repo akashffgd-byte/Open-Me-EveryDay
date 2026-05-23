@@ -146,57 +146,63 @@
 
 <script>
 
-const messages = [
+async function loadMessages(){
 
-"You are loved more than you know 💖",
+const response = await fetch('messages.txt');
 
-"No matter what happens today... I'm always with you 🫂",
+const text = await response.text();
 
-"Please smile a little today for me 😭✨",
+const messages = text
+  .split('
+')
+  .filter(msg => msg.trim() !== '');
 
-"You make my world softer and safer 🌙",
+const startDate = new Date('2025-01-01');
 
-"Drink water. Rest properly. I love you 💌"
+const today = new Date();
 
-];
+const diffTime = today - startDate;
+
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+const index = diffDays % messages.length;
+
+window.dailyMessage = messages[index];
+
+window.dayNumber = diffDays + 1;
+}
 
 function showMessage(){
 
-  const startDate = new Date("2025-01-01");
+  document.getElementById('message').innerText =
+    window.dailyMessage;
 
-  const today = new Date();
+  document.getElementById('dayText').innerText =
+    'Day ' + window.dayNumber + ' 💖';
 
-  const diffTime = today - startDate;
-
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  const index = diffDays % messages.length;
-
-  document.getElementById("message").innerText = messages[index];
-
-  document.getElementById("dayText").innerText =
-    "Day " + (diffDays + 1) + " 💖";
-
-  document.getElementById("messageBox").style.display = "block";
+  document.getElementById('messageBox').style.display = 'block';
 }
 
-const starsContainer = document.getElementById("stars");
+loadMessages();
+
+const starsContainer = document.getElementById('stars');
 
 for(let i=0;i<120;i++){
 
-  let star = document.createElement("div");
+  let star = document.createElement('div');
 
-  star.classList.add("star");
+  star.classList.add('star');
 
-  star.style.top = Math.random()*100 + "%";
+  star.style.top = Math.random()*100 + '%';
 
-  star.style.left = Math.random()*100 + "%";
+  star.style.left = Math.random()*100 + '%';
 
   star.style.animationDuration =
-    (Math.random()*3 + 2) + "s";
+    (Math.random()*3 + 2) + 's';
 
   starsContainer.appendChild(star);
 }
+
 
 </script>
 
