@@ -1,103 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Open Me Everyday 💌</title>
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #0f172a;
-      color: white;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    .container {
-      padding: 30px;
-      max-width: 500px;
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      font-family:Arial, sans-serif;
+      background:linear-gradient(to bottom,#0f172a,#020617);
+      color:white;
+      text-align:center;
+      padding:20px;
     }
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
+    .stars{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      top:0;
+      left:0;
     }
 
-    p {
-      opacity: 0.8;
-      line-height: 1.6;
+    .star{
+      position:absolute;
+      width:2px;
+      height:2px;
+      background:white;
+      border-radius:50%;
+      animation:twinkle 3s infinite alternate;
     }
 
-    button {
-      margin-top: 20px;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 12px;
-      background: #ff4d8d;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
+    @keyframes twinkle{
+      from{
+        opacity:0.2;
+      }
+      to{
+        opacity:1;
+      }
     }
 
-    button:hover {
-      transform: scale(1.05);
+    .container{
+      position:relative;
+      z-index:2;
+      max-width:500px;
+      animation:fadeIn 1.5s ease;
     }
 
-    .message-box {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.08);
-      display: none;
-      font-size: 18px;
-      line-height: 1.8;
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
     }
 
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('https://i.imgur.com/9QZ7K6v.png');
-      opacity: 0.2;
+    h1{
+      font-size:42px;
+      margin-bottom:15px;
     }
+
+    p{
+      line-height:1.8;
+      opacity:0.85;
+      font-size:18px;
+    }
+
+    button{
+      margin-top:30px;
+      padding:15px 28px;
+      border:none;
+      border-radius:16px;
+      background:#ff4d8d;
+      color:white;
+      font-size:17px;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 20px rgba(255,77,141,0.4);
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .message-box{
+      margin-top:30px;
+      padding:25px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      display:none;
+      font-size:20px;
+      line-height:1.8;
+      animation:fadeIn 1s ease;
+    }
+
+    .day{
+      margin-top:15px;
+      opacity:0.6;
+      font-size:14px;
+    }
+
   </style>
 </head>
 
 <body>
 
-  <div class="stars"></div>
+<div class="stars" id="stars"></div>
 
-  <div class="container">
-    <h1>Open Me Everyday 💌</h1>
+<div class="container">
 
-    <p>
-      One message. <br>
-      Every day. <br>
-      Until Day 2192 ✨
-    </p>
+  <h1>Open Me Everyday 💌</h1>
 
-    <button onclick="showMessage()">
-      Open Today’s Message
-    </button>
+  <p>
+    One message. <br>
+    Every day. <br>
+    Until Day 2192 ✨
+  </p>
 
-    <div class="message-box" id="messageBox">
-      You are loved more than you know 💖
-    </div>
+  <button onclick="showMessage()">
+    Open Today’s Message
+  </button>
+
+  <div class="message-box" id="messageBox">
+    <div id="message"></div>
+    <div class="day" id="dayText"></div>
   </div>
 
-  <script>
-    function showMessage() {
-      document.getElementById("messageBox").style.display = "block";
-    }
-  </script>
+</div>
+
+<script>
+
+const messages = [
+
+"You are loved more than you know 💖",
+
+"No matter what happens today... I'm always with you 🫂",
+
+"Please smile a little today for me 😭✨",
+
+"You make my world softer and safer 🌙",
+
+"Drink water. Rest properly. I love you 💌"
+
+];
+
+function showMessage(){
+
+  const startDate = new Date("2025-01-01");
+
+  const today = new Date();
+
+  const diffTime = today - startDate;
+
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  const index = diffDays % messages.length;
+
+  document.getElementById("message").innerText = messages[index];
+
+  document.getElementById("dayText").innerText =
+    "Day " + (diffDays + 1) + " 💖";
+
+  document.getElementById("messageBox").style.display = "block";
+}
+
+const starsContainer = document.getElementById("stars");
+
+for(let i=0;i<120;i++){
+
+  let star = document.createElement("div");
+
+  star.classList.add("star");
+
+  star.style.top = Math.random()*100 + "%";
+
+  star.style.left = Math.random()*100 + "%";
+
+  star.style.animationDuration =
+    (Math.random()*3 + 2) + "s";
+
+  starsContainer.appendChild(star);
+}
+
+</script>
 
 </body>
 </html>
