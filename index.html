@@ -189,8 +189,33 @@ Open Today’s Message
 
 <script>
 
+const PASSWORD = "forever";
+
 let messages = [];
+
 let currentDay = 0;
+
+function checkPassword(){
+
+const input =
+document.getElementById('passwordInput').value;
+
+if(input === PASSWORD){
+
+document.getElementById('passwordScreen')
+.style.display = 'none';
+
+document.getElementById('mainContent')
+.style.display = 'block';
+
+}else{
+
+document.getElementById('wrongPassword')
+.style.display = 'block';
+
+}
+
+}
 
 async function loadMessages(){
 
