@@ -123,28 +123,92 @@
 
 <div class="stars" id="stars"></div>
 
-<div class="container">
+<div id="passwordScreen" class="container">
 
-  <h1>Open Me Everyday 💌</h1>
+<h1>Open Me Everyday 🔐</h1>
 
-  <p>
-    One message. <br>
-    Every day. <br>
-    Until Day 2192 ✨
-  </p>
+<p>
+Enter our secret password 💖
+</p>
 
-  <button onclick="showMessage()">
-    Open Today’s Message
-  </button>
+<input
+type="password"
+id="passwordInput"
+placeholder="Password..."
+style="
+margin-top:20px;
+padding:14px;
+border:none;
+border-radius:12px;
+width:220px;
+font-size:16px;
+text-align:center;
+"
+/>
 
-  <div class="message-box" id="messageBox">
-    <div id="message"></div>
-    <div class="day" id="dayText"></div>
-  </div>
+<br>
+
+<button onclick="checkPassword()">
+Unlock 💌
+</button>
+
+<p id="wrongPassword"
+style="
+margin-top:15px;
+color:#ff8fab;
+display:none;
+">
+Wrong password 🥺
+</p>
+
+</div>
+
+<div class="container" id="mainContent" style="display:none;">
+
+<h1>Open Me Everyday 💌</h1>
+
+<p>
+One message. <br>
+Every day. <br>
+Until Day 2192 ✨
+</p>
+
+<button onclick="showMessage()">
+Open Today’s Message
+</button>
+
+<div class="message-box" id="messageBox">
+<div id="message"></div>
+<div class="day" id="dayText"></div>
+</div>
 
 </div>
 
 <script>
+
+const PASSWORD = "forever";
+
+function checkPassword(){
+
+const input =
+document.getElementById('passwordInput').value;
+
+if(input === PASSWORD){
+
+document.getElementById('passwordScreen')
+.style.display = 'none';
+
+document.getElementById('mainContent')
+.style.display = 'block';
+
+}else{
+
+document.getElementById('wrongPassword')
+.style.display = 'block';
+
+}
+
+}
 
 async function loadMessages(){
 
@@ -153,7 +217,7 @@ const response = await fetch('messages.txt');
 const text = await response.text();
 
 window.messages = text
-  .split('\n')
+  .split('\\n')
   .filter(msg => msg.trim() !== '');
 
 const startDate = new Date();
@@ -170,7 +234,8 @@ window.currentDay = diffDays;
 
 function showMessage(){
 
-const index = window.currentDay % window.messages.length;
+const index =
+window.currentDay % window.messages.length;
 
 document.getElementById('message').innerText =
 window.messages[index];
@@ -178,14 +243,15 @@ window.messages[index];
 document.getElementById('dayText').innerText =
 'Day ' + (window.currentDay + 1) + ' 💖';
 
-document.getElementById('messageBox').style.display =
-'block';
+document.getElementById('messageBox')
+.style.display = 'block';
 
 }
 
 loadMessages();
 
-const starsContainer = document.getElementById('stars');
+const starsContainer =
+document.getElementById('stars');
 
 for(let i=0;i<120;i++){
 
@@ -207,4 +273,5 @@ starsContainer.appendChild(star);
 </script>
 
 </body>
+
 </html>
