@@ -152,9 +152,8 @@ const response = await fetch('messages.txt');
 
 const text = await response.text();
 
-const messages = text
-  .split('
-')
+window.messages = text
+  .split('\n')
   .filter(msg => msg.trim() !== '');
 
 const startDate = new Date('2025-01-01');
@@ -165,22 +164,23 @@ const diffTime = today - startDate;
 
 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-const index = diffDays % messages.length;
+window.currentDay = diffDays;
 
-window.dailyMessage = messages[index];
-
-window.dayNumber = diffDays + 1;
 }
 
 function showMessage(){
 
-  document.getElementById('message').innerText =
-    window.dailyMessage;
+const index = window.currentDay % window.messages.length;
 
-  document.getElementById('dayText').innerText =
-    'Day ' + window.dayNumber + ' 💖';
+document.getElementById('message').innerText =
+window.messages[index];
 
-  document.getElementById('messageBox').style.display = 'block';
+document.getElementById('dayText').innerText =
+'Day ' + (window.currentDay + 1) + ' 💖';
+
+document.getElementById('messageBox').style.display =
+'block';
+
 }
 
 loadMessages();
@@ -189,20 +189,20 @@ const starsContainer = document.getElementById('stars');
 
 for(let i=0;i<120;i++){
 
-  let star = document.createElement('div');
+let star = document.createElement('div');
 
-  star.classList.add('star');
+star.classList.add('star');
 
-  star.style.top = Math.random()*100 + '%';
+star.style.top = Math.random()*100 + '%';
 
-  star.style.left = Math.random()*100 + '%';
+star.style.left = Math.random()*100 + '%';
 
-  star.style.animationDuration =
-    (Math.random()*3 + 2) + 's';
+star.style.animationDuration =
+(Math.random()*3 + 2) + 's';
 
-  starsContainer.appendChild(star);
+starsContainer.appendChild(star);
+
 }
-
 
 </script>
 
