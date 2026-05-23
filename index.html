@@ -189,29 +189,8 @@ Open Today’s Message
 
 <script>
 
-const PASSWORD = "forever";
-
-function checkPassword(){
-
-const input =
-document.getElementById('passwordInput').value;
-
-if(input === PASSWORD){
-
-document.getElementById('passwordScreen')
-.style.display = 'none';
-
-document.getElementById('mainContent')
-.style.display = 'block';
-
-}else{
-
-document.getElementById('wrongPassword')
-.style.display = 'block';
-
-}
-
-}
+let messages = [];
+let currentDay = 0;
 
 async function loadMessages(){
 
@@ -219,35 +198,31 @@ const response = await fetch('messages.txt');
 
 const text = await response.text();
 
-window.messages = text
-  .split('\\n')
-  .filter(msg => msg.trim() !== '');
+messages = text
+.split('\n')
+.filter(line => line.trim() !== '');
 
-const startDate = new Date();
-
-const today = new Date();
-
-const diffTime = today - startDate;
-
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-window.currentDay = diffDays;
+currentDay = 0;
 
 }
 
 function showMessage(){
 
-const index =
-window.currentDay % window.messages.length;
+const messageBox =
+document.getElementById('messageBox');
 
-document.getElementById('message').innerHTML =
-window.messages[index];
+const message =
+document.getElementById('message');
 
-document.getElementById('dayText').innerText =
-'Day ' + (window.currentDay + 1) + ' 💖';
+const dayText =
+document.getElementById('dayText');
 
-document.getElementById('messageBox')
-.style.display = 'block';
+message.innerText = messages[currentDay];
+
+dayText.innerText =
+'Day ' + (currentDay + 1) + ' 💖';
+
+messageBox.style.display = 'block';
 
 }
 
@@ -258,13 +233,16 @@ document.getElementById('stars');
 
 for(let i=0;i<120;i++){
 
-let star = document.createElement('div');
+let star =
+document.createElement('div');
 
 star.classList.add('star');
 
-star.style.top = Math.random()*100 + '%';
+star.style.top =
+Math.random()*100 + '%';
 
-star.style.left = Math.random()*100 + '%';
+star.style.left =
+Math.random()*100 + '%';
 
 star.style.animationDuration =
 (Math.random()*3 + 2) + 's';
