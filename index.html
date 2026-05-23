@@ -193,8 +193,6 @@ const PASSWORD = "forever";
 
 let messages = [];
 
-let currentDay = 0;
-
 function checkPassword(){
 
 const input =
@@ -227,11 +225,26 @@ messages = text
 .split('\n')
 .filter(line => line.trim() !== '');
 
-currentDay = 0;
-
 }
 
 function showMessage(){
+
+const startDate =
+new Date('2025-05-23');
+
+const today =
+new Date();
+
+const diffTime =
+today - startDate;
+
+const currentDay =
+Math.floor(
+diffTime / (1000 * 60 * 60 * 24)
+);
+
+const index =
+currentDay % messages.length;
 
 const messageBox =
 document.getElementById('messageBox');
@@ -242,12 +255,14 @@ document.getElementById('message');
 const dayText =
 document.getElementById('dayText');
 
-message.innerText = messages[currentDay];
+message.innerText =
+messages[index];
 
 dayText.innerText =
 'Day ' + (currentDay + 1) + ' 💖';
 
-messageBox.style.display = 'block';
+messageBox.style.display =
+'block';
 
 }
 
